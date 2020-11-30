@@ -56,4 +56,10 @@ public class IcecreamShopManagerTest {
 		itemsOrdered.addAll(Arrays.asList(Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola));
 		assertEquals(54.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
 	}
+	
+    @Test
+    public void commissionTest() throws TakeAwayBillException {
+        itemsOrdered.addAll(Arrays.asList(Cola, Cola, Cola));
+        assertEquals(9.50d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
+    }
 }
