@@ -21,15 +21,33 @@ public class IcecreamShopManagerTest {
     private ArrayList<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
 
     private MenuItem Pinguino = new MenuItem(itemType.Gelati, "Pinguino", 4.50d);
+    private MenuItem Cioccolata = new MenuItem(itemType.Gelati, "Cioccolata", 4.00d);
+    private MenuItem Stracciatella = new MenuItem(itemType.Gelati, "Stracciatella", 4.50d);
     private MenuItem Coppa_Nafta = new MenuItem(itemType.Budini, "Coppa Nafta", 5.50d);
     private MenuItem Cola = new MenuItem(itemType.Bevande, "Cola", 3.00d);
 
+    @Before
+    public void reset_itemsOrdered() {
+        itemsOrdered = new ArrayList<MenuItem>();
+    }
 
     @Test
-    public void getOrderPriceTest() throws TakeAwayBillException
+    public void subtotalTest() throws TakeAwayBillException
     {
-	itemsOrdered.addAll(Arrays.asList(Pinguino, Coppa_Nafta, Cola));
-	assertEquals(13.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
+    itemsOrdered.addAll(Arrays.asList(Pinguino, Coppa_Nafta, Cola));
+    assertEquals(13.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
 
     }
+    
+    @Test (expected = TakeAwayBillException.class)
+    public void TakeAwayBillExceptionTest() throws TakeAwayBillException {
+        itemsOrdered.addAll(Arrays.asList(Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino, Pinguino));
+        calculator.getOrderPrice(itemsOrdered, IO);
+    }
+    
+    @Test
+        public void discount_more5icecreamTest() throws TakeAwayBillException{
+        itemsOrdered.addAll(Arrays.asList(Pinguino, Cioccolata, Stracciatella, Pinguino, Stracciatella, Pinguino, Coppa_Nafta));
+        assertEquals(30.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
+     }
 }
