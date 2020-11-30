@@ -2,4 +2,4 @@
 
 [![Build Status](https://travis-ci.com/Paoloscia/Assigment_gelateria.svg?branch=master)](https://travis-ci.com/github/Paoloscia/Assigment_gelateria)
 
-[![Coverage Status](https://coveralls.io/repos/github/Paoloscia/Assigment_gelateria/badge.svg)](https://coveralls.io/github/Paoloscia/Assigment_gelateria)
+[![Coverage Status](https://coveralls.io/repos/github/Paoloscia/Assigment_gelateria/badge.svg?branch=master)](https://coveralls.io/github/Paoloscia/Assigment_gelateria?branch=master)
