@@ -15,7 +15,7 @@ public class IcecreamShopManager implements TakeAwayBill {
     @Override
     public double getOrderPrice(List<MenuItem> itemsOrdered, User user) throws TakeAwayBillException
     {
-        return subtotal(itemsOrdered) - discount_more5icecream(itemsOrdered);
+        return subtotal(itemsOrdered) - discount_more5icecream(itemsOrdered) - discount_more50euros(itemsOrdered);
     }
 
     double subtotal(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
@@ -33,6 +33,16 @@ public class IcecreamShopManager implements TakeAwayBill {
         if (itemsOrdered.stream().filter(s -> s.getItemType() == itemType.Gelati).count() > 5) {
             return (itemsOrdered.stream().filter(s -> s.getItemType() == itemType.Gelati).mapToDouble(d -> d.getPrice())
                     .min().orElse(0.00)) / 2.0;
+        }
+        return 0.0;
+    }
+    
+    double discount_more50euros(List<MenuItem> itemsOrdered)
+    {
+        double partial = itemsOrdered.stream().mapToDouble(d -> d.getPrice()).sum();
+        if(partial > 50.0)
+        {
+            return partial * 0.1;
         }
         return 0.0;
     }

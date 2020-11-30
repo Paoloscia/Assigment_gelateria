@@ -50,4 +50,10 @@ public class IcecreamShopManagerTest {
         itemsOrdered.addAll(Arrays.asList(Pinguino, Cioccolata, Stracciatella, Pinguino, Stracciatella, Pinguino, Coppa_Nafta));
         assertEquals(30.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
      }
+    
+	@Test
+	public void discount_more50eurosTest() throws TakeAwayBillException{
+		itemsOrdered.addAll(Arrays.asList(Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola, Cola));
+		assertEquals(54.00d, calculator.getOrderPrice(itemsOrdered, IO), 0.00d);
+	}
 }
