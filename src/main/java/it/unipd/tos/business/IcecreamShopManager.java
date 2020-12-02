@@ -4,18 +4,24 @@
 package it.unipd.tos.business;
 
 import it.unipd.tos.business.exception.TakeAwayBillException;
-import java.util.List;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.MenuItem.itemType;
 import it.unipd.tos.model.User;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class IcecreamShopManager implements TakeAwayBill {
 
+    private List<User> users = new ArrayList<>();
+
     @Override
-    public double getOrderPrice(List<MenuItem> itemsOrdered, User user) throws TakeAwayBillException
+    public double getOrderPrice(List<MenuItem> itemsOrdered, User user, LocalTime time) throws TakeAwayBillException
     {
-        return subtotal(itemsOrdered) - discount_more5icecream(itemsOrdered) - discount_more50euros(itemsOrdered) + commission(itemsOrdered);
+        return (subtotal(itemsOrdered) - discount_more5icecream(itemsOrdered) - discount_more50euros(itemsOrdered) + commission(itemsOrdered)) *ordineRegalato(user,time);
     }
 
     double subtotal(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
@@ -50,5 +56,20 @@ public class IcecreamShopManager implements TakeAwayBill {
     double commission(List<MenuItem> itemsOrdered)
     {
         return itemsOrdered.stream().mapToDouble(d -> d.getPrice()).sum() < 10.0 ? 0.5 : 0.0;
+    }
+
+    double ordineRegalato(User user, LocalTime time)
+    {
+        if(users.size() >= 10 || time.getHour() != 18) {
+            return 1.0;
+        }
+
+        if((18 >= (ChronoUnit.YEARS.between(user.getDataDiNascita(), LocalDate.now()))) && Math.random() < 0.5D) {
+            if(!users.contains(user)) {
+                users.add(user);
+                return 0.0;
+            }
+        }
+        return 1.0;
     }
 }
