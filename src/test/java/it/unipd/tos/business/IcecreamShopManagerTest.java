@@ -65,7 +65,7 @@ public class IcecreamShopManagerTest {
     }
 
     @Test
- public void regaloGelati() throws TakeAwayBillException
+ public void regaloGelatiTest() throws TakeAwayBillException
     {
     	IcecreamShopManager manager = new IcecreamShopManager();
     	itemsOrdered.addAll(Arrays.asList(Pinguino));
